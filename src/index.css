@@ -1,0 +1,61 @@
+/* --- required Tailwind directives --- */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* ---------- Design tokens ---------- */
+:root {
+  /* surfaces */
+  --bg:           255 255 255;      /* page background */
+  --muted:        248 250 252;      /* section background */
+  --card:         255 255 255;      /* cards/panels */
+  --border:       226 232 240;      /* borders */
+  /* text */
+  --fg:           15 23 42;         /* main text */
+  --subtle:       100 116 139;      /* secondary text */
+  /* brand */
+  --primary:      59 130 246;       /* #3b82f6 */
+  --ring:         59 130 246 / .35; /* focus ring */
+}
+
+html.dark {
+  --bg:           2 6 23;           /* #020617 */
+  --muted:        7 12 29;          /* slightly lifted page section */
+  --card:         15 23 42;         /* #0f172a */
+  --border:       51 65 85;         /* #334155 */
+  --fg:           226 232 240;      /* #e2e8f0 */
+  --subtle:       148 163 184;      /* #94a3b8 */
+  --primary:      99 102 241;       /* indigo-500 looks great on dark */
+  --ring:         99 102 241 / .35;
+}
+
+/* utility hooks */
+.bg-background  { background-color: rgb(var(--bg)); }
+.bg-muted       { background-color: rgb(var(--muted)); }
+.bg-card        { background-color: rgb(var(--card)); }
+
+.text-foreground{ color: rgb(var(--fg)); }
+.text-subtle    { color: rgb(var(--subtle)); }
+.border-border  { border-color: rgb(var(--border)); }
+.text-primary   { color: rgb(var(--primary)); }
+.bg-primary     { background-color: rgb(var(--primary)); }
+
+/* ---------- Components ---------- */
+.card {
+  @apply bg-card border border-border rounded-2xl shadow-sm;
+}
+
+.input {
+  @apply h-12 w-full rounded-xl bg-background text-foreground
+         border border-border px-4 outline-none
+         focus:ring-2 focus:ring-[color:rgb(var(--ring))];
+}
+
+.btn {
+  @apply inline-flex items-center justify-center rounded-xl px-4 h-10 font-medium
+         transition-colors;
+}
+.btn-primary { @apply bg-primary text-white hover:opacity-90; }
+.btn-ghost   { @apply bg-transparent text-foreground border border-border hover:bg-muted; }
+
+/* page scaffold */
+body { @apply bg-background text-foreground; }
