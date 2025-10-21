@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 function Pill({ children }: { children: React.ReactNode }) {
   return (
-    <span className="inline-flex items-center rounded-full border border-border bg-card px-3 py-1 text-xs font-medium text-subtle">
+    <span className="inline-flex items-center rounded-full border border-border bg-card px-3 py-1 text-xs font-medium text-subtle shadow-sm">
       {children}
     </span>
   );
@@ -12,7 +12,7 @@ function Pill({ children }: { children: React.ReactNode }) {
 
 function Kpi({ label, value, sub }: { label: string; value: string; sub?: string }) {
   return (
-    <div className="rounded-xl border border-border bg-card p-4">
+    <div className="rounded-xl border border-border bg-card p-4 shadow-sm hover:shadow-glow transition">
       <div className="text-xs uppercase tracking-wide text-subtle">{label}</div>
       <div className="mt-1 text-2xl font-semibold">{value}</div>
       {sub && <div className="mt-1 text-xs text-subtle">{sub}</div>}
@@ -33,6 +33,7 @@ function Card({
     <motion.div
       initial={{ opacity: 0, y: 18 }}
       whileInView={{ opacity: 1, y: 0 }}
+      whileHover={{ y: -4, boxShadow: "0 8px 24px rgba(0,0,0,0.12)" }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay }}
       className="p-6 rounded-xl border border-border bg-card shadow-sm"
@@ -45,7 +46,7 @@ function Card({
 
 export default function HowItWorks() {
   return (
-    <div className="bg-background text-foreground">
+    <div className="relative min-h-screen overflow-hidden bg-gradient-to-b from-background to-muted text-foreground">
       {/* HERO */}
       <section className="mx-auto max-w-screen-xl px-4 md:px-8 py-16 md:py-24">
         <motion.div
@@ -54,13 +55,13 @@ export default function HowItWorks() {
           transition={{ duration: 0.45 }}
           className="mx-auto max-w-3xl text-center"
         >
-          <h1 className="text-4xl md:text-5xl font-semibold tracking-tight">
-            How JETA Works
-          </h1>
+          <div className="inline-block px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-5">
+            Learn the Pipeline
+          </div>
+          <h1 className="text-4xl md:text-5xl font-semibold tracking-tight">How JETA Works</h1>
           <p className="mt-4 text-lg text-subtle">
-            JETA is a trained algorithm for real estate investors. It turns your basic
-            inputs into a transparent, investor-grade verdict: <span className="font-medium">BUY, MAYBE, or PASS</span> —
-            with supporting metrics you can trust.
+            JETA is a trained algorithm for real estate investors. It turns your basic inputs into a transparent,
+            investor-grade verdict: <span className="font-medium">BUY, MAYBE, or PASS</span> with supporting metrics you can trust.
           </p>
           <div className="mt-6 flex items-center justify-center gap-2 flex-wrap">
             <Pill>ARV Engine</Pill>
@@ -70,7 +71,10 @@ export default function HowItWorks() {
             <Pill>Explainable Outputs</Pill>
           </div>
           <div className="mt-8">
-            <Link to="/analyze" className="btn btn-primary h-12 px-6 text-base">
+            <Link
+              to="/analyze"
+              className="h-12 inline-flex items-center rounded-xl bg-gradient-primary text-primary-foreground px-6 shadow hover:opacity-95 hover:shadow-glow hover:-translate-y-0.5 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:rgb(var(--ring))] focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            >
               Run your first 3 deals free
             </Link>
           </div>
@@ -105,7 +109,7 @@ export default function HowItWorks() {
         </div>
       </section>
 
-      {/* METHODS (high-level, no code) */}
+      {/* METHODS (high-level) */}
       <section className="mx-auto max-w-screen-xl px-4 md:px-8 pb-6">
         <div className="grid gap-6 lg:grid-cols-2">
           <Card title="ARV: Robust Valuation">
@@ -134,14 +138,14 @@ export default function HowItWorks() {
             Screen significantly more deals weekly while keeping the math conservative and repeatable.
           </Card>
           <Card title="Consistency beats emotion">
-            Every deal runs through the same discipline: inputs → assumptions → model → verdict. Less bias, fewer bad buys.
+            Every deal runs through the same discipline: inputs + assumptions + model + verdict. Less bias, fewer bad buys.
           </Card>
           <Card title="Share-ready outputs">
             Results are clean and lender-friendly. Save analyses, share summaries, and align your team quickly.
           </Card>
         </div>
 
-        <div className="mt-8 rounded-xl border border-border bg-card p-5 text-sm text-subtle">
+        <div className="mt-8 rounded-xl border border-border bg-card p-5 text-sm text-subtle shadow-sm">
           <span className="font-medium text-foreground">Transparency:</span> JETA is a decision-support tool,
           not appraisal, legal, or tax advice. Validate assumptions with local professionals.
         </div>
@@ -163,7 +167,10 @@ export default function HowItWorks() {
           <p className="mt-3 text-lg text-subtle max-w-2xl mx-auto">
             JETA is your deal-flow engine — built to save time, protect downside, and sharpen every offer.
           </p>
-          <Link to="/analyze" className="mt-6 inline-block px-6 py-3 rounded-xl bg-primary text-white shadow hover:opacity-90 transition">
+          <Link
+            to="/analyze"
+            className="mt-6 inline-flex h-11 items-center rounded-xl bg-gradient-primary text-primary-foreground px-6 shadow hover:opacity-90 hover:shadow-glow transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:rgb(var(--ring))] focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          >
             Try JETA — 3 free reports
           </Link>
         </div>
@@ -171,3 +178,4 @@ export default function HowItWorks() {
     </div>
   );
 }
+

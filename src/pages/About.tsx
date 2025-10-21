@@ -96,6 +96,30 @@ const About = () => {
         </div>
       </section>
 
+      {/* Learn How It Works teaser */}
+      <section className="py-6">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold">Learn How JETA Works</h2>
+          <p className="mt-3 text-lg text-subtle max-w-2xl mx-auto">
+            Explore our pipeline, assumptions, and decision model. See why investors trust JETA for fast, disciplined screening.
+          </p>
+          <div className="mt-6 flex items-center justify-center gap-4">
+            <Link
+              to="/how-it-works"
+              className="h-11 inline-flex items-center rounded-xl bg-gradient-primary text-primary-foreground px-6 shadow hover:opacity-95 hover:shadow-glow hover:-translate-y-0.5 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:rgb(var(--ring))] focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            >
+              See How It Works
+            </Link>
+            <Link
+              to="/analyze"
+              className="h-11 inline-flex items-center rounded-xl px-6 border border-border bg-background hover:bg-muted transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:rgb(var(--ring))] focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            >
+              Analyze a Deal
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Values Section */}
       <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -132,13 +156,13 @@ const About = () => {
             <div className="mt-6 flex items-center justify-center gap-4">
               <a
                 href="/analyze"
-                className="h-11 inline-flex items-center rounded-xl bg-gradient-primary text-primary-foreground px-6 shadow hover:opacity-95 hover:shadow-glow hover:-translate-y-0.5 transition-all"
+                className="h-11 inline-flex items-center rounded-xl bg-gradient-primary text-primary-foreground px-6 shadow hover:opacity-95 hover:shadow-glow hover:-translate-y-0.5 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:rgb(var(--ring))] focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               >
                 Get Started Free
               </a>
               <a
                 href="/"
-                className="h-11 inline-flex items-center rounded-xl px-6 border border-border bg-background hover:bg-muted hover:ring-2 hover:ring-[color:rgb(var(--ring))] hover:ring-offset-1 hover:ring-offset-background transition"
+                className="h-11 inline-flex items-center rounded-xl px-6 border border-border bg-background hover:bg-muted transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:rgb(var(--ring))] focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               >
                 Learn More
               </a>
