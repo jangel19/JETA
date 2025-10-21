@@ -1,61 +1,127 @@
-/* --- required Tailwind directives --- */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* ---------- Design tokens ---------- */
-:root {
-  /* surfaces */
-  --bg:           255 255 255;      /* page background */
-  --muted:        248 250 252;      /* section background */
-  --card:         255 255 255;      /* cards/panels */
-  --border:       226 232 240;      /* borders */
-  /* text */
-  --fg:           15 23 42;         /* main text */
-  --subtle:       100 116 139;      /* secondary text */
-  /* brand */
-  --primary:      59 130 246;       /* #3b82f6 */
-  --ring:         59 130 246 / .35; /* focus ring */
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Core colors - light backgrounds */
+    --background: 220 15% 98%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    /* Primary brand - vibrant blue */
+    --primary: 221 83% 53%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 221 83% 63%;
+
+    /* Secondary - purple accent */
+    --secondary: 271 81% 56%;
+    --secondary-foreground: 0 0% 100%;
+
+    /* Muted tones */
+    --muted: 220 15% 95%;
+    --muted-foreground: 220 9% 46%;
+
+    /* Accent - green */
+    --accent: 142 76% 36%;
+    --accent-foreground: 0 0% 100%;
+
+    /* Success - emerald */
+    --success: 158 64% 52%;
+    --success-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 221 83% 53%;
+
+    --radius: 0.75rem;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(221 83% 53%) 0%, hsl(271 81% 56%) 100%);
+    --gradient-secondary: linear-gradient(135deg, hsl(142 76% 36%) 0%, hsl(221 83% 53%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(271 81% 56%) 0%, hsl(316 73% 52%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(221 83% 53% / 0.05) 0%, hsl(271 81% 56% / 0.05) 100%);
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 hsl(220 9% 46% / 0.05);
+    --shadow-md: 0 4px 6px -1px hsl(220 9% 46% / 0.1), 0 2px 4px -1px hsl(220 9% 46% / 0.06);
+    --shadow-lg: 0 10px 15px -3px hsl(220 9% 46% / 0.1), 0 4px 6px -2px hsl(220 9% 46% / 0.05);
+    --shadow-glow: 0 0 40px hsl(221 83% 53% / 0.3);
+
+    /* Sidebar */
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 222 47% 11%;
+    --foreground: 210 40% 98%;
+
+    --card: 222 47% 11%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 47% 11%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 221 83% 53%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 221 83% 63%;
+
+    --secondary: 271 81% 56%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 142 76% 36%;
+    --accent-foreground: 0 0% 100%;
+
+    --success: 158 64% 52%;
+    --success-foreground: 0 0% 100%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 221 83% 53%;
+
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
 }
 
-html.dark {
-  --bg:           2 6 23;           /* #020617 */
-  --muted:        7 12 29;          /* slightly lifted page section */
-  --card:         15 23 42;         /* #0f172a */
-  --border:       51 65 85;         /* #334155 */
-  --fg:           226 232 240;      /* #e2e8f0 */
-  --subtle:       148 163 184;      /* #94a3b8 */
-  --primary:      99 102 241;       /* indigo-500 looks great on dark */
-  --ring:         99 102 241 / .35;
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
 }
-
-/* utility hooks */
-.bg-background  { background-color: rgb(var(--bg)); }
-.bg-muted       { background-color: rgb(var(--muted)); }
-.bg-card        { background-color: rgb(var(--card)); }
-
-.text-foreground{ color: rgb(var(--fg)); }
-.text-subtle    { color: rgb(var(--subtle)); }
-.border-border  { border-color: rgb(var(--border)); }
-.text-primary   { color: rgb(var(--primary)); }
-.bg-primary     { background-color: rgb(var(--primary)); }
-
-/* ---------- Components ---------- */
-.card {
-  @apply bg-card border border-border rounded-2xl shadow-sm;
-}
-
-.input {
-  @apply h-12 w-full rounded-xl bg-background text-foreground
-         border border-border px-4 outline-none
-         focus:ring-2 focus:ring-[color:rgb(var(--ring))];
-}
-
-.btn {
-  @apply inline-flex items-center justify-center rounded-xl px-4 h-10 font-medium
-         transition-colors;
-}
-.btn-primary { @apply bg-primary text-white hover:opacity-90; }
-.btn-ghost   { @apply bg-transparent text-foreground border border-border hover:bg-muted; }
-
-/* page scaffold */
-body { @apply bg-background text-foreground; }
