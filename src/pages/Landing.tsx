@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import WhyJeta from "@/components/WhyJeta";
 import ZillowCarousel from "@/components/ZillowCarousel";
 import NearbyHomes from "@/components/NearbyHomes";
 import { featuredHomes } from "@/data/featuredHomes";
@@ -8,7 +7,7 @@ import { featuredHomes } from "@/data/featuredHomes";
 
 export default function Landing() {
   return (
-    <div className="bg-gradient-to-b from-white to-muted dark:from-gray-950 dark:to-gray-950">
+    <div className="bg-gradient-to-b from-background to-muted">
       {/* Hero */}
       <section className="mx-auto max-w-screen-xl px-4 md:px-8 py-20 md:py-28">
         <motion.div
@@ -31,8 +30,7 @@ export default function Landing() {
       </section>
       
 
-      {/* Sales section */}
-      <WhyJeta />
+      {/* Sales section moved into HomeIntroScene on home page */}
       
 
       {/* Listings at bottom */}
