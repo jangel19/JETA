@@ -96,24 +96,32 @@ export default function Analyze() {
   };
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-white text-slate-900 transition-colors dark:bg-slate-950 dark:text-white">
+    <div className="relative min-h-screen overflow-hidden bg-gradient-to-b from-background to-muted text-foreground">
       <div className="relative mx-auto max-w-screen-xl px-4 md:px-8 py-10 md:py-14">
         <div className="flex items-center gap-2">
           <button
-            className={`btn ${tab === "flip" ? "btn-primary" : "btn-ghost"}`}
+            className={`h-10 px-4 rounded-xl border transition-all duration-200 ${
+              tab === "flip"
+                ? "bg-gradient-to-r from-primary to-secondary text-primary-foreground border-transparent shadow hover:shadow-glow hover:-translate-y-0.5"
+                : "bg-background text-foreground border-border hover:bg-muted hover:ring-2 hover:ring-[color:rgb(var(--ring))] hover:ring-offset-1 hover:ring-offset-background"
+            }`}
             onClick={() => setTab("flip")}
           >
             Flip
           </button>
           <button
-            className={`btn ${tab === "rental" ? "btn-primary" : "btn-ghost"}`}
+            className={`h-10 px-4 rounded-xl border transition-all duration-200 ${
+              tab === "rental"
+                ? "bg-gradient-to-r from-primary to-secondary text-primary-foreground border-transparent shadow hover:shadow-glow hover:-translate-y-0.5"
+                : "bg-background text-foreground border-border hover:bg-muted hover:ring-2 hover:ring-[color:rgb(var(--ring))] hover:ring-offset-1 hover:ring-offset-background"
+            }`}
             onClick={() => setTab("rental")}
           >
             Rental
           </button>
         </div>
 
-        <div className="card bg-white/85 border border-black/10 backdrop-blur-xl dark:bg-slate-900/70 dark:border-white/10 p-6 md:p-8 mt-6">
+        <div className="rounded-2xl border border-border bg-gradient-to-br from-background to-card p-6 md:p-8 shadow-sm hover:shadow-glow transition mt-6">
           {tab === "flip" ? (
             <form onSubmit={flipForm.handleSubmit(onSubmit)} className="grid md:grid-cols-2 gap-4">
               <Field f={flipForm} name="user_email" label="Email" type="email" />
@@ -125,10 +133,10 @@ export default function Analyze() {
               <Field f={flipForm} name="selling_pct" label="Selling % (0.06 = 6%)" type="number" step="0.01" />
               <ArrayCSV f={flipForm} name="comp_arvs" label="Comp ARVs (CSV)" />
               <div className="md:col-span-2 flex items-center gap-3 mt-2">
-                <button disabled={loading} className="btn btn-primary">
+                <button disabled={loading} className="h-11 rounded-xl bg-gradient-primary text-primary-foreground px-6 shadow hover:opacity-95 hover:shadow-glow hover:-translate-y-0.5 transition-all disabled:opacity-60">
                   {loading ? "Analyzing…" : "Analyze deal"}
                 </button>
-                <button type="button" className="btn btn-ghost" onClick={() => flipForm.reset()}>
+                <button type="button" className="h-11 rounded-xl px-6 border border-border bg-background hover:bg-muted hover:ring-2 hover:ring-[color:rgb(var(--ring))] hover:ring-offset-1 hover:ring-offset-background transition" onClick={() => flipForm.reset()}>
                   Reset
                 </button>
               </div>
@@ -148,10 +156,10 @@ export default function Analyze() {
               <Field f={rentalForm} name="rehab_cash_in" label="Rehab Cash-In" type="number" />
               <Field f={rentalForm} name="mortgage_month" label="Override: Mortgage / month (optional)" type="number" />
               <div className="md:col-span-2 flex items-center gap-3 mt-2">
-                <button disabled={loading} className="btn btn-primary">
+                <button disabled={loading} className="h-11 rounded-xl bg-gradient-primary text-primary-foreground px-6 shadow hover:opacity-95 hover:shadow-glow hover:-translate-y-0.5 transition-all disabled:opacity-60">
                   {loading ? "Analyzing…" : "Analyze deal"}
                 </button>
-                <button type="button" className="btn btn-ghost" onClick={() => rentalForm.reset()}>
+                <button type="button" className="h-11 rounded-xl px-6 border border-border bg-background hover:bg-muted hover:ring-2 hover:ring-[color:rgb(var(--ring))] hover:ring-offset-1 hover:ring-offset-background transition" onClick={() => rentalForm.reset()}>
                   Reset
                 </button>
               </div>
@@ -160,7 +168,7 @@ export default function Analyze() {
         </div>
 
         {error && (
-          <div className="mt-4 p-4 rounded-xl border border-red-200/60 bg-red-500/10 text-red-200 dark:text-red-300">
+          <div className="mt-4 p-4 rounded-xl border border-destructive/40 bg-destructive/10 text-destructive ring-1 ring-destructive/20">
             {error}
           </div>
         )}
@@ -181,14 +189,14 @@ function Field({ f, name, label, type = "text", step }: any) {
   } = f;
   return (
     <div>
-      <label className="text-sm text-slate-600 dark:text-slate-200">{label}</label>
+      <label className="text-sm text-subtle">{label}</label>
       <input
         type={type}
         step={step}
         {...register(name, { valueAsNumber: ["number"].includes(type) })}
-        className="input w-full mt-1 bg-white/80 text-slate-900 border-black/10 focus:ring-primary/30 dark:bg-slate-900/40 dark:text-white dark:border-white/10"
+        className="h-11 w-full rounded-xl border border-border bg-background px-4 text-foreground outline-none transition hover:border-foreground/20 focus:ring-4 focus:ring-primary/20 focus:border-primary/40 mt-1"
       />
-      {errors[name] && <div className="text-sm text-red-500 dark:text-red-300 mt-1">{errors[name].message as string}</div>}
+      {errors[name] && <div className="text-sm text-destructive mt-1">{errors[name].message as string}</div>}
     </div>
   );
 }
@@ -200,10 +208,10 @@ function Select({ f, name, label, options }: any) {
   } = f;
   return (
     <div>
-      <label className="text-sm text-slate-600 dark:text-slate-200">{label}</label>
+      <label className="text-sm text-subtle">{label}</label>
       <select
         {...register(name)}
-        className="input w-full mt-1 bg-white/80 text-slate-900 border-black/10 focus:ring-primary/30 dark:bg-slate-900/40 dark:text-white dark:border-white/10"
+        className="h-11 w-full rounded-xl border border-border bg-background px-4 text-foreground outline-none transition hover:border-foreground/20 focus:ring-4 focus:ring-primary/20 focus:border-primary/40 mt-1"
       >
         {options.map((o: string) => (
           <option key={o} value={o}>
@@ -211,7 +219,7 @@ function Select({ f, name, label, options }: any) {
           </option>
         ))}
       </select>
-      {errors[name] && <div className="text-sm text-red-500 dark:text-red-300 mt-1">{errors[name].message as string}</div>}
+      {errors[name] && <div className="text-sm text-destructive mt-1">{errors[name].message as string}</div>}
     </div>
   );
 }
@@ -221,9 +229,9 @@ function ArrayCSV({ f, name, label }: any) {
   const raw = (watch(name) || []).join(", ");
   return (
     <div className="md:col-span-2">
-      <label className="text-sm text-slate-600 dark:text-slate-200">{label}</label>
+      <label className="text-sm text-subtle">{label}</label>
       <input
-        className="input w-full mt-1 bg-white/80 text-slate-900 border-black/10 focus:ring-primary/30 dark:bg-slate-900/40 dark:text-white dark:border-white/10"
+        className="h-11 w-full rounded-xl border border-border bg-background px-4 text-foreground outline-none transition hover:border-foreground/20 focus:ring-4 focus:ring-primary/20 focus:border-primary/40 mt-1"
         defaultValue={raw}
         onChange={(e) => {
           const arr = e.target.value
@@ -233,7 +241,7 @@ function ArrayCSV({ f, name, label }: any) {
           setValue(name, arr, { shouldValidate: true });
         }}
       />
-      <div className="text-xs text-slate-500 dark:text-slate-300 mt-1">Example: 560000, 575000, 545000</div>
+      <div className="text-xs text-subtle mt-1">Example: 560000, 575000, 545000</div>
     </div>
   );
 }
