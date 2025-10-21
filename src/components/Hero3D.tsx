@@ -1,5 +1,5 @@
-import { useRef } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import React, { useRef } from 'react';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { OrbitControls, Sphere, Box, Torus } from '@react-three/drei';
 import * as THREE from 'three';
 
@@ -8,7 +8,6 @@ const FloatingShape = ({ position, geometry }: { position: [number, number, numb
 
   useFrame((state) => {
     if (!meshRef.current) return;
-    
     const time = state.clock.getElapsedTime();
     meshRef.current.rotation.x = time * 0.3;
     meshRef.current.rotation.y = time * 0.5;
@@ -27,32 +26,32 @@ const FloatingShape = ({ position, geometry }: { position: [number, number, numb
         <Sphere {...shapeProps} args={[1, 32, 32]}>
           <meshStandardMaterial
             color="#3b82f6"
-            metalness={0.8}
-            roughness={0.2}
-            emissive="#3b82f6"
-            emissiveIntensity={0.2}
+            metalness={0.7}
+            roughness={0.23}
+            emissive="#347bb5"
+            emissiveIntensity={0.16}
           />
         </Sphere>
       )}
       {geometry === 'box' && (
         <Box {...shapeProps} args={[1.5, 1.5, 1.5]}>
           <meshStandardMaterial
-            color="#8b5cf6"
-            metalness={0.8}
-            roughness={0.2}
-            emissive="#8b5cf6"
-            emissiveIntensity={0.2}
+            color="#a1a1aa"
+            metalness={0.5}
+            roughness={0.18}
+            emissive="#555"
+            emissiveIntensity={0.12}
           />
         </Box>
       )}
       {geometry === 'torus' && (
         <Torus {...shapeProps} args={[1, 0.4, 16, 32]}>
           <meshStandardMaterial
-            color="#10b981"
-            metalness={0.8}
-            roughness={0.2}
-            emissive="#10b981"
-            emissiveIntensity={0.2}
+            color="#13bb82"
+            metalness={0.43}
+            roughness={0.31}
+            emissive="#0a6349"
+            emissiveIntensity={0.1}
           />
         </Torus>
       )}
@@ -63,26 +62,54 @@ const FloatingShape = ({ position, geometry }: { position: [number, number, numb
 const Scene = () => {
   return (
     <>
-      <ambientLight intensity={0.5} />
-      <directionalLight position={[10, 10, 5]} intensity={1} castShadow />
-      <pointLight position={[-10, -10, -5]} intensity={0.5} color="#8b5cf6" />
+      <ambientLight intensity={0.44} />
+      <directionalLight position={[10, 10, 5]} intensity={1.1} castShadow />
+      <pointLight position={[-10, -10, -5]} intensity={0.4} color="#8b5cf6" />
       <pointLight position={[10, 10, 5]} intensity={0.5} color="#3b82f6" />
 
       <FloatingShape position={[-3, 0, 0]} geometry="sphere" />
       <FloatingShape position={[3, 0, 0]} geometry="box" />
       <FloatingShape position={[0, 2, -2]} geometry="torus" />
 
-      <OrbitControls
-        enableZoom={false}
-        enablePan={false}
-        autoRotate
-        autoRotateSpeed={0.5}
-        maxPolarAngle={Math.PI / 2}
-        minPolarAngle={Math.PI / 3}
-      />
+      <SafeOrbitControls />
     </>
   );
 };
+
+function SafeOrbitControls() {
+  const { camera } = useThree();
+  const [auto, setAuto] = React.useState(true);
+  const timer = React.useRef<number | undefined>(undefined);
+  if (!camera) return null;
+
+  const onStart = () => {
+    setAuto(false);
+    if (timer.current) {
+      window.clearTimeout(timer.current);
+      timer.current = undefined;
+    }
+  };
+  const onEnd = () => {
+    if (timer.current) window.clearTimeout(timer.current);
+    timer.current = window.setTimeout(() => setAuto(true), 2000);
+  };
+
+  React.useEffect(() => () => { if (timer.current) window.clearTimeout(timer.current); }, []);
+
+  return (
+    <OrbitControls
+      enableZoom={false}
+      enablePan={true}
+      autoRotate={auto}
+      autoRotateSpeed={0.5}
+      maxPolarAngle={Math.PI / 2}
+      minPolarAngle={Math.PI / 3}
+      makeDefault
+      onStart={onStart}
+      onEnd={onEnd}
+    />
+  );
+}
 
 const Hero3D = () => {
   return (

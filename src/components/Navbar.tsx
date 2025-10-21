@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { ThemeToggle } from '@/components/ThemeToggle';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -30,37 +32,38 @@ const Navbar = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
-            <a href="/" className="flex items-center space-x-2">
+            <Link to="/" className="flex items-center space-x-2">
               <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-xl">J</span>
               </div>
               <span className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
                 JETA
               </span>
-            </a>
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <a href="#features" className="text-foreground hover:text-primary transition-colors">
+            <Link to="/features" className="text-foreground hover:text-primary transition-colors">
               Features
-            </a>
-            <a href="#about" className="text-foreground hover:text-primary transition-colors">
+            </Link>
+            <Link to="/about" className="text-foreground hover:text-primary transition-colors">
               About
-            </a>
-            <a href="#pricing" className="text-foreground hover:text-primary transition-colors">
+            </Link>
+            <Link to="/pricing" className="text-foreground hover:text-primary transition-colors">
               Pricing
-            </a>
-            <a href="#contact" className="text-foreground hover:text-primary transition-colors">
+            </Link>
+            <Link to="/contact" className="text-foreground hover:text-primary transition-colors">
               Contact
-            </a>
+            </Link>
           </div>
 
           {/* CTA Buttons */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button variant="ghost">Sign In</Button>
-            <Button className="bg-gradient-primary hover:opacity-90 transition-opacity">
-              Get Started
+            <ThemeToggle />
+            <Button asChild variant="ghost"><Link to="/signin">Sign In</Link></Button>
+            <Button asChild className="bg-gradient-primary hover:opacity-90 transition-opacity">
+              <Link to="/signup">Get Started</Link>
             </Button>
           </div>
 
@@ -80,36 +83,37 @@ const Navbar = () => {
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="md:hidden py-4 space-y-4 animate-fade-in">
-            <a
-              href="#features"
+            <Link
+              to="/features"
               className="block text-foreground hover:text-primary transition-colors"
             >
               Features
-            </a>
-            <a
-              href="#about"
+            </Link>
+            <Link
+              to="/about"
               className="block text-foreground hover:text-primary transition-colors"
             >
               About
-            </a>
-            <a
-              href="#pricing"
+            </Link>
+            <Link
+              to="/pricing"
               className="block text-foreground hover:text-primary transition-colors"
             >
               Pricing
-            </a>
-            <a
-              href="#contact"
+            </Link>
+            <Link
+              to="/contact"
               className="block text-foreground hover:text-primary transition-colors"
             >
               Contact
-            </a>
+            </Link>
             <div className="flex flex-col space-y-2 pt-4">
-              <Button variant="ghost" className="w-full">
-                Sign In
+              <ThemeToggle />
+              <Button asChild variant="ghost" className="w-full">
+                <Link to="/signin">Sign In</Link>
               </Button>
-              <Button className="w-full bg-gradient-primary hover:opacity-90 transition-opacity">
-                Get Started
+              <Button asChild className="w-full bg-gradient-primary hover:opacity-90 transition-opacity">
+                <Link to="/signup">Get Started</Link>
               </Button>
             </div>
           </div>
