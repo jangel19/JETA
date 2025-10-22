@@ -1,6 +1,10 @@
 # Dependencies
 node_modules/
 
+# Build output / tool caches
+dist/
+.vite/
+
 
 # Logs
 npm-debug.log*
