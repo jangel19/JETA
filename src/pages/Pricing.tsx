@@ -8,8 +8,19 @@ import { Link } from "react-router-dom";
 
 const plans = [
   {
+    name: "Free",
+    price: { monthly: 0, annual: 0 },
+    description: "Get started at no cost",
+    features: [
+      "Single user",
+      "1GB storage",
+      "Basic AI features",
+      "Community support",
+    ],
+  },
+  {
     name: "Starter",
-    price: { monthly: 29, annual: 290 },
+    price: { monthly: 19.99, annual: 191.0 },
     description: "Perfect for small teams getting started",
     features: [
       "Up to 5 team members",
@@ -21,7 +32,7 @@ const plans = [
   },
   {
     name: "Professional",
-    price: { monthly: 99, annual: 990 },
+    price: { monthly: 79.99, annual: 767.0 },
     description: "For growing teams that need more power",
     features: [
       "Up to 25 team members",
@@ -83,7 +94,7 @@ const Pricing = () => {
               />
             </button>
             <span className={isAnnual ? "font-semibold" : "text-muted-foreground"}>
-              Annual <span className="text-primary text-sm">(Save 17%)</span>
+              Annual <span className="text-primary text-sm">(Save 20%)</span>
             </span>
           </div>
         </div>
@@ -92,12 +103,20 @@ const Pricing = () => {
       {/* Pricing Cards */}
       <section className="py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
             {plans.map((plan, index) => (
               <Card
                 key={index}
-                className={`relative animate-fade-in ${
+                className={`relative animate-fade-in transition-all duration-200 ${
                   plan.popular ? "border-primary shadow-glow" : ""
+                } ${
+                  plan.name === "Professional"
+                    ? "hover:-translate-y-1 hover:shadow-xl hover:scale-[1.01] hover:bg-primary/5 hover:ring-1 hover:ring-primary/25 dark:hover:bg-primary/10"
+                    : ""
+                } ${
+                  plan.name === "Enterprise"
+                    ? "hover:-translate-y-1 hover:shadow-lg hover:ring-1 hover:ring-primary/30 hover:border-primary/40"
+                    : ""
                 }`}
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
@@ -112,10 +131,13 @@ const Pricing = () => {
                   <CardTitle>{plan.name}</CardTitle>
                   <CardDescription>{plan.description}</CardDescription>
                   <div className="mt-4">
-                    {plan.price.monthly ? (
+                    {plan.price.monthly !== null ? (
                       <>
                         <span className="text-4xl font-bold">
-                          ${isAnnual ? plan.price.annual : plan.price.monthly}
+                          ${
+                            (isAnnual ? plan.price.annual : plan.price.monthly)
+                              .toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                          }
                         </span>
                         <span className="text-muted-foreground">
                           /{isAnnual ? "year" : "month"}
@@ -140,9 +162,13 @@ const Pricing = () => {
                     className={`w-full ${plan.popular ? "bg-gradient-primary" : ""}`}
                     variant={plan.popular ? "default" : "outline"}
                   >
-                    <Link to={plan.price.monthly ? "/signup" : "/contact"}>
-                      {plan.price.monthly ? "Start Free Trial" : "Contact Sales"}
-                    </Link>
+                    {plan.price.monthly !== null ? (
+                      <Link to="/signup">
+                        {plan.price.monthly === 0 ? "Get Started" : "Start Free Trial"}
+                      </Link>
+                    ) : (
+                      <Link to="/contact">Contact Sales</Link>
+                    )}
                   </Button>
                 </CardContent>
               </Card>
