@@ -4,11 +4,13 @@ import { Menu, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/ThemeToggle';
+import { useAuth } from '@/context/AuthContext';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const { user } = useAuth();
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -58,13 +60,21 @@ const Navbar = () => {
             </Link>
           </div>
 
-          {/* CTA Buttons */}
+          {/* CTA / Auth Status */}
           <div className="hidden md:flex items-center space-x-4">
             <ThemeToggle />
-            <Button asChild variant="ghost"><Link to="/signin">Sign In</Link></Button>
-            <Button asChild className="bg-gradient-primary hover:opacity-90 transition-opacity">
-              <Link to="/signup">Get Started</Link>
-            </Button>
+            {user ? (
+              <span className="text-sm text-muted-foreground">
+                Signed in as <span className="font-medium text-foreground">{user.name}</span>
+              </span>
+            ) : (
+              <>
+                <Button asChild variant="ghost"><Link to="/signin">Sign In</Link></Button>
+                <Button asChild className="bg-gradient-primary hover:opacity-90 transition-opacity">
+                  <Link to="/signup">Get Started</Link>
+                </Button>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -109,12 +119,20 @@ const Navbar = () => {
             </Link>
             <div className="flex flex-col space-y-2 pt-4">
               <ThemeToggle />
-              <Button asChild variant="ghost" className="w-full">
-                <Link to="/signin">Sign In</Link>
-              </Button>
-              <Button asChild className="w-full bg-gradient-primary hover:opacity-90 transition-opacity">
-                <Link to="/signup">Get Started</Link>
-              </Button>
+              {user ? (
+                <div className="text-sm text-muted-foreground">
+                  Signed in as <span className="font-medium text-foreground">{user.name}</span>
+                </div>
+              ) : (
+                <>
+                  <Button asChild variant="ghost" className="w-full">
+                    <Link to="/signin">Sign In</Link>
+                  </Button>
+                  <Button asChild className="w-full bg-gradient-primary hover:opacity-90 transition-opacity">
+                    <Link to="/signup">Get Started</Link>
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         )}

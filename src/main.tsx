@@ -19,16 +19,13 @@ import SignIn from "./pages/Signin";
 import SignUp from "./pages/SignUp";
 
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { AuthProvider } from "@/context/AuthContext";
 import { Toaster } from "@/components/ui/toaster";
-import Hero3DEnhanced from "@/components/Hero3DEnhanced";
 
 function Shell({ children }: React.PropsWithChildren) {
   const { pathname } = useLocation();
-  const showGlobalBg =
-    pathname !== "/" && pathname !== "/analyze" && pathname !== "/dashboard" && pathname !== "/pricing" && pathname !== "/signin" && pathname !== "/signup";
   return (
     <div className="relative min-h-screen flex flex-col text-foreground">
-      {showGlobalBg && <Hero3DEnhanced />}
       <Navbar />
       <main className="flex-1">{children}</main>
       <footer className="border-t border-border/60 bg-background/80 backdrop-blur-xl mt-12">
@@ -57,10 +54,12 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-      <RouterProvider router={router} />
-      <Toaster />
-    </ThemeProvider>
+    <AuthProvider>
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <RouterProvider router={router} />
+        <Toaster />
+      </ThemeProvider>
+    </AuthProvider>
   </React.StrictMode>
 );
 
