@@ -1,6 +1,7 @@
 module.exports = {
   plugins: {
-    tailwindcss: { config: './tailwind.config.cjs' },
+    // Ensure Tailwind reads the unified TS config
+    tailwindcss: { config: './tailwind.config.ts' },
     autoprefixer: {},
   },
 };

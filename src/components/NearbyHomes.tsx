@@ -24,11 +24,11 @@ export default function NearbyHomes() {
           value={where}
           onChange={(e) => setWhere(e.target.value)}
           placeholder="e.g., 01902 or Lynn, MA"
-          className="h-11 w-full rounded-xl border border-border bg-background px-4 text-foreground outline-none focus:ring-2 focus:ring-blue-500"
+          className="h-11 w-full rounded-xl border border-border bg-background px-4 text-foreground outline-none focus:ring-2 focus:ring-[color:rgb(var(--ring))]"
         />
         <button
           onClick={openZillow}
-          className="h-11 rounded-xl bg-blue-600 px-4 text-white hover:bg-blue-700"
+          className="h-11 rounded-xl bg-primary text-primary-foreground px-4 hover:opacity-90"
         >
           Browse on Zillow
         </button>

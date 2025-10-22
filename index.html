@@ -4,20 +4,29 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>JETA AI</title>
-    <meta name="theme-color" content="#0B6CFF" />
+    <meta name="description" content="Experience the future of innovation with JETA. Powerful AI-driven tools, lightning-fast performance, and enterprise-grade security." />
+    <meta name="author" content="JETA" />
+
+    <meta property="og:title" content="JETA - Next-Gen Platform for Modern Startups" />
+    <meta property="og:description" content="Experience the future of innovation with JETA. Powerful AI-driven tools, lightning-fast performance, and enterprise-grade security." />
+    <meta property="og:type" content="website" />
+    <!-- Use local hero image for social previews -->
+    <meta property="og:image" content="/src/assets/hero-bg.jpg" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@jeta_platform" />
+    <meta name="twitter:image" content="/src/assets/hero-bg.jpg" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/src/assets/feature-ai.png" />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   </head>
-  <body class="bg-white text-ink">
+
+  <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
-<script>
-  (function () {
-    try {
-      const saved = localStorage.getItem("theme");
-      const systemDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      const shouldDark = saved ? saved === "dark" : systemDark;
-      if (shouldDark) document.documentElement.classList.add("dark");
-    } catch {}
-  })();
-</script>
