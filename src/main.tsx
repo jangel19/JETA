@@ -15,7 +15,7 @@ import Features from "./pages/Features";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Dashboard from "./pages/Dashboard";
-import SignIn from "./pages/Signin";
+import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 
 import { ThemeProvider } from "@/components/ThemeProvider";

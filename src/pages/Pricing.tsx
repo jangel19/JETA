@@ -20,7 +20,7 @@ const plans = [
   },
   {
     name: "Starter",
-    price: { monthly: 19.99, annual: 191.0 },
+    price: { monthly: 19.99, annual: 191.9 },
     description: "Perfect for small teams getting started",
     features: [
       "Up to 5 team members",
@@ -32,7 +32,7 @@ const plans = [
   },
   {
     name: "Professional",
-    price: { monthly: 79.99, annual: 767.0 },
+    price: { monthly: 79.99, annual: 767.9 },
     description: "For growing teams that need more power",
     features: [
       "Up to 25 team members",
