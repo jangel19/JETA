@@ -1,16 +1,30 @@
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { useAuth } from '@/context/AuthContext';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
-  const { user } = useAuth();
+  const navigate = useNavigate();
+  const { user, signOut } = useAuth();
+  const displayName = (() => {
+    if (!user) return "";
+    if (user.firstName || user.lastName) return [user.firstName, user.lastName].filter(Boolean).join(" ");
+    if (user.name) return user.name;
+    const local = (user.email.split("@")[0] || "user").replace(/[._-]+/g, " ").trim();
+    return local ? local.charAt(0).toUpperCase() + local.slice(1) : "User";
+  })();
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -64,9 +78,25 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-4">
             <ThemeToggle />
             {user ? (
-              <span className="text-sm text-muted-foreground">
-                Signed in as <span className="font-medium text-foreground">{user.name}</span>
-              </span>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="px-2 text-sm text-muted-foreground">
+                    Signed in as <span className="ml-1 font-medium text-foreground">{displayName}</span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-40">
+                  <DropdownMenuItem onSelect={() => navigate('/dashboard')}>Dashboard</DropdownMenuItem>
+                  <DropdownMenuItem onSelect={() => navigate('/profile')}>Profile</DropdownMenuItem>
+                  <DropdownMenuItem
+                    onSelect={() => {
+                      signOut();
+                      navigate('/');
+                    }}
+                  >
+                    Sign out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             ) : (
               <>
                 <Button asChild variant="ghost"><Link to="/signin">Sign In</Link></Button>
@@ -120,9 +150,28 @@ const Navbar = () => {
             <div className="flex flex-col space-y-2 pt-4">
               <ThemeToggle />
               {user ? (
-                <div className="text-sm text-muted-foreground">
-                  Signed in as <span className="font-medium text-foreground">{user.name}</span>
-                </div>
+                <>
+                  <div className="text-sm text-muted-foreground">
+                    Signed in as <span className="font-medium text-foreground">{displayName}</span>
+                  </div>
+                  <Button asChild variant="outline" className="w-full">
+                    <Link to="/dashboard">Dashboard</Link>
+                  </Button>
+                  <Button asChild variant="outline" className="w-full">
+                    <Link to="/profile">Profile</Link>
+                  </Button>
+                  <Button
+                    className="w-full"
+                    variant="destructive"
+                    onClick={() => {
+                      signOut();
+                      setIsMobileMenuOpen(false);
+                      navigate('/');
+                    }}
+                  >
+                    Sign out
+                  </Button>
+                </>
               ) : (
                 <>
                   <Button asChild variant="ghost" className="w-full">

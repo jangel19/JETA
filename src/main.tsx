@@ -17,6 +17,8 @@ import Contact from "./pages/Contact";
 import Dashboard from "./pages/Dashboard";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
+import Profile from "./pages/Profile";
+import RequireAuth from "@/components/RequireAuth";
 
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { AuthProvider } from "@/context/AuthContext";
@@ -46,7 +48,8 @@ const router = createBrowserRouter([
   { path: "/features", element: <Features />, errorElement: <ErrorPage /> },
   { path: "/about", element: <About />, errorElement: <ErrorPage /> },
   { path: "/contact", element: <Contact />, errorElement: <ErrorPage /> },
-  { path: "/dashboard", element: <Dashboard />, errorElement: <ErrorPage /> },
+  { path: "/dashboard", element: <RequireAuth><Dashboard /></RequireAuth>, errorElement: <ErrorPage /> },
+  { path: "/profile", element: <Shell><RequireAuth><Profile /></RequireAuth></Shell>, errorElement: <ErrorPage /> },
   { path: "/signin", element: <Shell><SignIn /></Shell>, errorElement: <ErrorPage /> },
   { path: "/signup", element: <Shell><SignUp /></Shell>, errorElement: <ErrorPage /> },
   { path: "*", element: <Shell><NotFound /></Shell>, errorElement: <ErrorPage /> },

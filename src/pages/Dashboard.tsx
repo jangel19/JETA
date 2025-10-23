@@ -3,15 +3,24 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, TrendingUp, Users, Zap } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { useAuth } from "@/context/AuthContext";
 
 const Dashboard = () => {
+  const { user } = useAuth();
+  const displayName = (() => {
+    if (!user) return "there";
+    if (user.firstName) return user.firstName;
+    if (user.name) return user.name.split(" ")[0] || "there";
+    const local = (user.email.split("@")[0] || "there").replace(/[._-]+/g, " ").trim();
+    return local ? local.charAt(0).toUpperCase() + local.slice(1) : "there";
+  })();
   return (
     <div className="relative min-h-screen overflow-hidden bg-white text-slate-900 transition-colors dark:bg-slate-950 dark:text-white">
       <Navbar />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="mb-12 animate-fade-in">
-          <h1 className="text-4xl font-bold mb-2">Welcome back, John!</h1>
+          <h1 className="text-4xl font-bold mb-2">Welcome back, {displayName}!</h1>
           <p className="text-slate-600 dark:text-slate-300">Here's what's happening with your portfolio today.</p>
         </div>
 

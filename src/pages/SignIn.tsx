@@ -17,14 +17,9 @@ const SignIn = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const local = email.split("@")[0] || "user";
-    const prettyName = local
-      .replace(/[._-]+/g, " ")
-      .split(" ")
-      .filter(Boolean)
-      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-      .join(" ");
-    signIn({ name: prettyName || "User", email });
+    const local = (email.split("@")[0] || "user").replace(/[._-]+/g, " ").trim();
+    const firstName = local ? local.charAt(0).toUpperCase() + local.slice(1) : "User";
+    signIn({ firstName, lastName: "", email });
     toast({
       title: "Welcome back!",
       description: "You've been successfully signed in.",

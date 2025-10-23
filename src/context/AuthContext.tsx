@@ -1,14 +1,18 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 type User = {
-  name: string;
   email: string;
+  firstName?: string;
+  lastName?: string;
+  // Back-compat for previously stored shape
+  name?: string;
 };
 
 type AuthContextValue = {
   user: User | null;
   signIn: (user: User) => void;
   signOut: () => void;
+  updateUser: (partial: Partial<User>) => void;
 };
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
@@ -22,8 +26,9 @@ export const AuthProvider: React.FC<React.PropsWithChildren> = ({ children }) =>
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) {
-        const parsed = JSON.parse(raw) as User;
-        if (parsed && parsed.email) setUser(parsed);
+        const parsed = JSON.parse(raw) as any;
+        // Accept old shape { name, email } and new { firstName, lastName, email }
+        if (parsed && parsed.email) setUser(parsed as User);
       }
     } catch {
       // ignore parse/storage errors
@@ -48,7 +53,19 @@ export const AuthProvider: React.FC<React.PropsWithChildren> = ({ children }) =>
     }
   };
 
-  const value = useMemo(() => ({ user, signIn, signOut }), [user]);
+  const updateUser = (partial: Partial<User>) => {
+    setUser((prev) => {
+      const next = { ...(prev ?? { name: "", email: "" }), ...partial } as User;
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+      } catch {
+        // ignore storage errors
+      }
+      return next;
+    });
+  };
+
+  const value = useMemo(() => ({ user, signIn, signOut, updateUser }), [user]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

@@ -297,7 +297,7 @@ export default function HomeIntroScene() {
               We help small developers and investors <span className="font-semibold text-blue-600 dark:text-blue-300">underwrite deals in seconds</span> with crystal-clear math and AI-powered insights.
             </p>
             <div className="inline-block px-6 py-2 rounded-full bg-slate-900/5 dark:bg-white/10 backdrop-blur-md border border-slate-900/10 dark:border-white/20 text-slate-700 dark:text-white/80 text-sm">
-              🏗️ Built for Real Estate Developers & Investors
+              Built for Real Estate Developers & Investors
             </div>
           </div>
         </div>

@@ -7,6 +7,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Link, useNavigate } from "react-router-dom";
 import { Mail, Github } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/context/AuthContext";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -17,6 +18,7 @@ const SignUp = () => {
   });
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { signIn } = useAuth();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,9 +30,16 @@ const SignUp = () => {
       });
       return;
     }
+    // Create account and sign user in locally for consistent UI
+    const raw = (formData.name || "").trim().replace(/[._-]+/g, " ");
+    const parts = raw.split(/\s+/).filter(Boolean);
+    const cap = (s: string) => (s ? s.charAt(0).toUpperCase() + s.slice(1) : s);
+    const firstName = parts[0] ? cap(parts[0]) : cap((formData.email.split("@")[0] || "User"));
+    const lastName = parts.slice(1).join(" ");
+    signIn({ firstName, lastName, email: formData.email });
     toast({
       title: "Account Created!",
-      description: "Welcome to JETA. Let's get started.",
+      description: "You're signed in and ready to go.",
     });
     navigate("/dashboard");
   };
