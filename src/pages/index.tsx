@@ -60,7 +60,7 @@ const Index = () => {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="text-lg px-8 py-6 border-2 bg-white/70 text-slate-900 hover:bg-white/90 dark:bg-white/5 dark:text-white dark:border-white/20 dark:hover:bg-white/10"
+                  className="text-lg px-8 py-6 border-2 bg-white/70 text-slate-900 hover:bg-white/90 hover:text-slate-900 dark:bg-white/5 dark:text-white dark:border-white/20 dark:hover:bg-white/10 dark:hover:text-white"
                   onClick={() => setIsDemoModalOpen(true)}
                 >
                   Watch Demo
