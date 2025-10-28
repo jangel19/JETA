@@ -8,17 +8,6 @@ import { Link } from "react-router-dom";
 
 const plans = [
   {
-    name: "Free",
-    price: { monthly: 0, annual: 0 },
-    description: "Get started at no cost",
-    features: [
-      "Single user",
-      "1GB storage",
-      "Basic AI features",
-      "Community support",
-    ],
-  },
-  {
     name: "Starter",
     price: { monthly: 19.99, annual: 191.9 },
     description: "Perfect for small teams getting started",
@@ -97,13 +86,21 @@ const Pricing = () => {
               Annual <span className="text-primary text-sm">(Save 20%)</span>
             </span>
           </div>
+
+          {/* Primary CTA */}
+          <div className="flex flex-col items-center gap-3">
+            <Button asChild size="lg" className="bg-gradient-primary hover:opacity-90 transition-opacity text-lg px-8 py-6">
+              <Link to="/signup">Start Free Trial</Link>
+            </Button>
+            <div className="text-sm text-muted-foreground">14-day free trial. No credit card required.</div>
+          </div>
         </div>
       </section>
 
       {/* Pricing Cards */}
       <section className="py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-3 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {plans.map((plan, index) => (
               <Card
                 key={index}
@@ -142,9 +139,21 @@ const Pricing = () => {
                         <span className="text-muted-foreground">
                           /{isAnnual ? "year" : "month"}
                         </span>
+                        <div className="mt-2">
+                          <span className="inline-flex items-center text-xs font-medium text-primary bg-primary/10 rounded-full px-2.5 py-1">
+                            14-day free trial
+                          </span>
+                        </div>
                       </>
                     ) : (
-                      <span className="text-4xl font-bold">Custom</span>
+                      <>
+                        <span className="text-4xl font-bold">Custom</span>
+                        <div className="mt-2">
+                          <span className="inline-flex items-center text-xs font-medium text-primary bg-primary/10 rounded-full px-2.5 py-1">
+                            14-day free trial available
+                          </span>
+                        </div>
+                      </>
                     )}
                   </div>
                 </CardHeader>
@@ -163,9 +172,7 @@ const Pricing = () => {
                     variant={plan.popular ? "default" : "outline"}
                   >
                     {plan.price.monthly !== null ? (
-                      <Link to="/signup">
-                        {plan.price.monthly === 0 ? "Get Started" : "Start Free Trial"}
-                      </Link>
+                      <Link to="/signup">Start Free Trial</Link>
                     ) : (
                       <Link to="/contact">Contact Sales</Link>
                     )}

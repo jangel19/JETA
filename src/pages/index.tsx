@@ -20,7 +20,7 @@ const Index = () => {
   const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
 
   return (
-    <div className="relative min-h-screen bg-white text-slate-900 transition-colors dark:bg-slate-950 dark:text-white">
+    <div className="relative min-h-screen bg-white text-slate-900 transition-colors dark:bg-slate-950 dark:text-white overflow-x-hidden max-w-[100vw]">
       <Navbar />
       <DemoModal open={isDemoModalOpen} onOpenChange={setIsDemoModalOpen} />
 
@@ -53,7 +53,7 @@ const Index = () => {
                   className="bg-gradient-primary hover:opacity-90 transition-opacity text-lg px-8 py-6 group"
                 >
                   <Link to="/signup">
-                    Get Started Free
+                    Start Free Trial
                     <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </Button>
@@ -66,6 +66,8 @@ const Index = () => {
                   Watch Demo
                 </Button>
               </div>
+
+              <div className="text-sm text-slate-500 dark:text-slate-300">14-day free trial. No credit card required.</div>
 
               <div className="flex items-center gap-8 pt-4 text-slate-700 dark:text-white/80">
                 <div>
@@ -116,7 +118,7 @@ const Index = () => {
           <h2 className="text-xl font-semibold">Explore listings</h2>
           <p className="text-sm text-slate-500 dark:text-slate-300">Tap a card to view on Zillow</p>
         </div>
-        <div className="grid gap-6 md:grid-cols-[2fr,1fr]">
+        <div className="grid gap-6 md:grid-cols-[2fr,1fr] min-w-0">
           <ZillowCarousel items={featuredHomes} />
           <NearbyHomes />
         </div>

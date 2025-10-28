@@ -152,18 +152,18 @@ const About = () => {
             <h3 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white">Ready to see JETA in action?</h3>
             <p className="text-lg text-subtle mt-2 max-w-2xl mx-auto">Analyze your next property with AI-powered insights in seconds.</p>
             <div className="mt-6 flex items-center justify-center gap-4">
-              <a
-                href="/analyze"
+              <Link
+                to="/signup"
                 className="h-11 inline-flex items-center rounded-xl bg-gradient-primary text-primary-foreground px-6 shadow hover:opacity-95 hover:shadow-glow hover:-translate-y-0.5 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:rgb(var(--ring))] focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               >
-                Get Started Free
-              </a>
-              <a
-                href="/"
+                Start Free Trial
+              </Link>
+              <Link
+                to="/pricing"
                 className="h-11 inline-flex items-center rounded-xl px-6 border border-border bg-background hover:bg-muted transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:rgb(var(--ring))] focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               >
-                Learn More
-              </a>
+                View Pricing
+              </Link>
             </div>
           </div>
         </div>

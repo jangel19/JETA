@@ -23,8 +23,8 @@ export default function Landing() {
             JETA AI helps small developers and investors decide: BUY, MAYBE, or PASS — with crystal-clear math.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-4">
-            <Link to="/analyze" className="btn btn-primary">Analyze a property</Link>
-            <Link to="/usage" className="btn btn-ghost">Check my usage</Link>
+            <Link to="/signup" className="btn btn-primary">Start Free Trial</Link>
+            <Link to="/pricing" className="btn btn-ghost">View Pricing</Link>
           </div>
         </motion.div>
       </section>
