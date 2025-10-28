@@ -97,7 +97,7 @@ export default function Analyze() {
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-gradient-to-b from-background to-muted text-foreground">
-      <div className="relative mx-auto max-w-screen-xl px-4 md:px-8 py-10 md:py-14">
+      <div className="relative mx-auto max-w-screen-xl px-4 md:px-8 pt-24 md:pt-28 pb-10 md:pb-14">
         <div className="flex items-center gap-2">
           <button
             className={`h-10 px-4 rounded-xl border transition-all duration-200 ${

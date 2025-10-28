@@ -15,11 +15,12 @@ export default function ZillowCarousel({ items }: { items: Item[] }) {
   const ref = useRef<HTMLDivElement>(null);
 
   return (
-    <div className="w-full">
+    <div className="w-full min-w-0">
       <div className="relative">
         <div
           ref={ref}
-          className="flex gap-4 overflow-x-auto pb-2 snap-x snap-mandatory"
+          className="flex gap-4 overflow-x-auto pb-2 snap-x snap-mandatory max-w-full"
+          style={{ scrollbarGutter: "stable" }}
         >
           {items.map((h) => (
             <motion.a
@@ -29,7 +30,7 @@ export default function ZillowCarousel({ items }: { items: Item[] }) {
               rel="noreferrer"
               aria-label={`View ${h.address} on Zillow`}
               whileHover={{ y: -2 }}
-              className="snap-start w-[280px] shrink-0 card hover:shadow-md transition-shadow"
+              className="snap-start w-[240px] sm:w-[280px] shrink-0 card hover:shadow-md transition-shadow"
             >
               <div className="h-44 w-full overflow-hidden rounded-t-2xl bg-muted">
                 <img
