@@ -171,7 +171,7 @@ export default function HowItWorks() {
             to="/analyze"
             className="mt-6 inline-flex h-11 items-center rounded-xl bg-gradient-primary text-primary-foreground px-6 shadow hover:opacity-90 hover:shadow-glow transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:rgb(var(--ring))] focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
-            Try JETA — 3 free reports
+            Try JETA - 3 free reports
           </Link>
         </div>
       </section>
