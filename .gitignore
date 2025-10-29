@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+
+# Virtual environments
+venv/
+myenv/
+.env/
+.venv/
+*.env
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+*.pid
+
+# Build / test
+*.egg-info/
+dist/
+build/
+.coverage
+.pytest_cache/
+
+# Supabase local (future)
+.supabase/
