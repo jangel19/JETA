@@ -1,33 +1,52 @@
-# JETA AI - Backend Development Day 1
+# JETA AI - Backend Development
 
-### Overview
-Day 1 was focused on setting up the backend foundation for JETA AI using FastAPI and Supabase.  
-The goal was to establish authentication, connect to the database, and have a working signup and login system.
+## Overview
+JETA AI is a real estate intelligence platform built with FastAPI and Supabase.  
+The backend handles authentication, role-based access control, and secure data management through Row Level Security (RLS).
+
+---
+
+## Day 1 - Backend Foundation
+Day 1 focused on setting up the core backend architecture and authentication system.
+
+### Summary
+- Created FastAPI project structure (`core`, `database`, `models`, `routers`).
+- Configured `.env` for Supabase keys and FastAPI secret.
+- Linked Supabase with a working schema (`user_profiles`, `listings`, `subscriptions`).
+- Enabled RLS and added basic table policies.
+- Implemented `/auth/signup` and `/auth/login` routes using Supabase Auth.
+- Tested endpoints successfully via `curl`.
+
+**Result:** Authentication and database connection fully functional — users can sign up, log in, and get tokens.
+
+---
+
+## Day 2 - Role Management & Access Control (RBAC)
+Day 2 focused on securing routes and enforcing roles both at the API and database level.
 
 ### What I Did
-1. Set up the FastAPI project structure with folders for `core`, `database`, `models`, and `routers`.
-2. Configured environment variables in a `.env` file for Supabase and the FastAPI app.
-   - SUPABASE_URL  
-   - SUPABASE_ANON_KEY  
-   - SUPABASE_SERVICE_KEY  
-   - APP_SECRET_KEY
-3. Connected Supabase to the backend using the service key for server-side access.
-4. Created the database schema in Supabase:
-   - Tables: `user_profiles`, `listings`, `subscriptions`
-   - Enum: `user_role` with values `buyer`, `seller`, `agent`, `investor`
-   - Enabled Row Level Security and created basic policies for each table.
-5. Implemented authentication routes:
-   - `/auth/signup` creates a Supabase Auth user and inserts a user profile with a role.
-   - `/auth/login` verifies the user and returns an access token and role.
-6. Tested both endpoints using `curl` and verified responses.
-7. Created a `.gitignore` to exclude `.env` and virtual environment files.
-8. Created a new branch called `jordi-backend` and pushed the working code to GitHub.
+1. Implemented a full RBAC system where only specific roles can access certain routes.
+2. Created a dependency system in `app/deps/auth.py`:
+   - `get_current_user()` validates Supabase tokens and fetches the user role from `user_profiles`.
+   - `require_roles()` enforces which roles can access specific routes.
+   - Added a `user_scoped_postgrest()` client to enforce RLS automatically.
+3. Added `/listings/add` route:
+   - Only users with roles `seller` or `agent` can add listings.
+   - Automatically sets `owner_id` to the authenticated user's ID.
+   - Returns the created listing from the database.
+4. Configured SQL RLS policy for `public.listings` to allow inserts only if:
+   - `auth.uid() = owner_id`
+   - The user’s role is either `seller` or `agent`.
+5. Verified everything using Swagger (`/docs`) with real Supabase tokens.
 
-### Results
-- FastAPI successfully connected to Supabase.
-- User signup and login are fully working.
-- Each user profile is stored in the database with a specific role.
-- The backend can now authenticate users and return session tokens.
+**Result:**  
+- Unauthorized users receive `401 Unauthorized`.  
+- Authenticated users with the wrong role receive `403 Forbidden`.  
+- Sellers and agents can successfully create listings.  
+- RLS confirmed working correctly at the database layer.
 
-### Next Steps
-- Coming Soon (probably tmrw if i dont have too much hw lol)
+---
+
+## Next Steps
+- might be pushed tn if im locked in 😈
+- 
