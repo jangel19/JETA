@@ -78,6 +78,5 @@ upload_cols = ["id", "date", "price", "bedrooms", "bathrooms", "sqft_living", "s
 data = df_ser[upload_cols].to_dict(orient="records")
 
 # small first
-# small first
 resp = supabase.table("clean_properties").upsert(data[:100], on_conflict="id").execute()
 print("Supabase insert status:", getattr(resp, "status_code", "ok"))
