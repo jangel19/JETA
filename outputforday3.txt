@@ -1,0 +1,45 @@
+
+Response body
+Download
+{
+  "summary": "274 Donahue Ave, Lowell, MA: approx. 1400 sqft, 3 bd / 2 ba, built 1985. Mock investment score: 81/100. Estimated rehab: $49,000.",
+  "investment_score": 81,
+  "rehab_estimate": 49000,
+  "zoning_notes": [
+    "Verify zoning use aligns with intended occupancy.",
+    "Permit required for major structural changes.",
+    "Check local parking minimums for multi-unit conversions."
+  ],
+  "risk_factors": [
+    "no major imediate risks identified, please validate with inspection"
+  ],
+  "charts": {
+    "price per sqft": {
+      "subject": 336,
+      "market avg": 350,
+      "neighborhood_quartiles": {
+        "p25": 300,
+        "p50": 340,
+        "p75": 390
+      }
+    },
+    "estimated_rehab_breakdown": [
+      {
+        "category": "exterior",
+        "estimate": 17150
+      },
+      {
+        "category": "mechanical and systems",
+        "estimate": 14700
+      },
+      {
+        "category": "interior",
+        "estimate": 17150
+      }
+    ]
+  }
+}
+
+this is the output i got with my sample data, nothing crazy but just want
+to test out the waters and im using donahue since its my dorm lol
+any questions mena lmk
