@@ -62,10 +62,37 @@ After Mena’s frontend updates, the next goal is to integrate an actual ML mode
 The hardest part today was dealing with the Swagger setup and ensuring token persistence finally worked properly.
 
 **Result:**  
-The analysis engine is now live and functional(only on my machine when its running lol), producing full mock reports ready for ML integration.
+The analysis engine is now live and functional (only on my machine when it’s running), producing full mock reports ready for ML integration.
+
+---
+
+## Day 4 - Data Pipeline & Public Dataset Ingestion
+**Focus:** Building the data ingestion and cleaning pipeline to prepare for model training.
+
+**Summary:**
+- Created `ingest_data.py` inside `app/ML/` for end-to-end data processing.
+- Imported and cleaned the **King County House Sales** dataset.
+- Standardized column names, removed missing and unrealistic values, and computed new metrics like `price_per_sqft`.
+- Applied type conversions, floored bedroom and bathroom medians, and enforced numeric consistency.
+- Generated `clean_data.csv` in `data/clean/`.
+- Implemented Supabase integration to upload cleaned data directly to the `clean_properties` table using a service role key.
+- Fixed serialization issues (`Timestamp`, `NaN`, `float64`) and duplicate primary key conflicts using deduplication and upsert logic.
+- Finalized a fully automated ingestion script that connects raw CSVs to live Supabase tables.
+
+**Notes:**  
+Today connected everything I’ve learned from the **Google Machine Learning Crash Course**.  
+Understanding data normalization, missing value handling, and feature engineering made the cleaning process intuitive and fun.  
+Seeing how raw housing data becomes usable for modeling helped everything click together — it was the first time I saw how real ML pipelines start forming.  
+The hardest part was definitely Supabase. Between RLS, schema caching, and handling data types, it took time to get everything working smoothly, but I finally did.  
+This step made JETA AI feel like a real company in motion, with both data infrastructure and backend logic coming together.
+
+**Result:**  
+`ingest_data.py` now automates dataset cleaning and database syncing successfully.  
+All data used in JETA AI’s analysis and training pipeline is clean, validated, and stored securely in Supabase, ready for Day 5 (Model Training).
 
 ---
 
 ## Next Steps
-- tmrw stay tuned 😈
-- 
+- Begin Day 5: Build and train the first ML regression model to predict property prices and investment scores.
+- Integrate the trained model into the `/analyze-prop` endpoint.
+- Continue expanding JETA AI’s backend and ML infrastructure as the foundation for a real-world real estate intelligence platform.
