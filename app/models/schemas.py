@@ -1,20 +1,18 @@
-from pydantic import BaseModel, EmailStr, constr
-from typing import Literal
+from pydantic import BaseModel, EmailStr, Field
+from typing import Literal, Annotated
 
 Role = Literal["buyer", "seller", "agent", "investor"]
 
 class SignUp(BaseModel):
     email : EmailStr
-    password: constr(min_length=8)
+    password: Annotated[str, Field(min_length=8)]
     role : Role
 
 class Login(BaseModel):
     email: EmailStr
-    password : constr(min_length=8)
+    password : Annotated[str, Field(min_length=8)]
 
 class AuthResponse(BaseModel):
     access_token : str
     token_type : str = "bearer"
     role: Role
-
-    

@@ -3,7 +3,15 @@ from postgrest import APIError
 from app.database.supabase_client import supabase
 from app.models.schemas import SignUp, Login, AuthResponse
 
-router = APIRouter(prefix="/auth", tags = ["auth"])
+router = APIRouter(tags = ["auth"])
+from fastapi import APIRouter, Depends
+from app.deps.auth import get_current_user, CurrentUser
+
+router = APIRouter(tags=["auth"])
+
+@router.get("/me")
+async def me(current: CurrentUser = Depends(get_current_user)):
+    return {"user_id": current.user_id, "email": current.email, "role": current.role}
 
 @router.post("/signup", response_model=AuthResponse, status_code=201)
 def signup(body: SignUp):
